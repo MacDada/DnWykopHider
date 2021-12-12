@@ -1,0 +1,29 @@
+{
+  "name": "DnWykopHider",
+  "version": "0.0.1",
+  "manifest_version": 2,
+  "description": "Hide findings from the list view",
+  "default_locale": "en",
+  "homepage_url": "https://github.com/MacDada/DnWykopHider",
+  "author": "Dawid Nowak",
+  "content_scripts": [
+    {
+      "matches": [
+        "https://wykop.pl/*"
+      ],
+      "css": [
+        "style.css"
+      ],
+      "js": [
+        "jquery-2.1.0.min.js",
+        "jquery.sortElements-0.11.js",
+        "script.js"
+      ]
+    }
+  ],
+  "background": {
+    "scripts": [
+      "background.js"
+    ]
+  }
+}
