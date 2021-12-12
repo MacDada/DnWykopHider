@@ -9,7 +9,8 @@
   "content_scripts": [
     {
       "matches": [
-        "https://wykop.pl/*"
+        "https://wykop.pl/*",
+        "https://www.wykop.pl/*"
       ],
       "css": [
         "style.css"
