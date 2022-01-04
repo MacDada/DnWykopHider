@@ -29,12 +29,6 @@ $('ul.mainnav').append((function () {
 })());
 
 function runWykopHider(options) {
-    const injectStyleString = function (str) {
-        const node = document.createElement('style');
-        node.innerHTML = str;
-        document.body.appendChild(node);
-    };
-
     const hiddenClass = 'DnWH_hidden';
 
     injectStyleString('.' + hiddenClass + ' { opacity: ' + options.hiddenOpacity + '; }');

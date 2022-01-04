@@ -1,5 +1,11 @@
 'use strict';
 
+const injectStyleString = function (str) {
+    const node = document.createElement('style');
+    node.innerHTML = str;
+    document.body.appendChild(node);
+};
+
 const HidablesStorage = function (storageDriver, prefix, gcDays) {
     const countKey = "_" + prefix + "_count";
 
