@@ -58,7 +58,12 @@ function runWykopHider(options) {
 
             hidableView.hide($hidables);
 
-            redirectToNextPageIfAllHidablesAreHidden();
+            // some bug on wykop prevents opening a hidable in a new background tab on last element
+            // page is changed before the new tab opens
+            // solution: be a bit slower with changing the page, to give time for tab opening
+            setTimeout(function () {
+                redirectToNextPageIfAllHidablesAreHidden();
+            }, 500);
         },
         toggleVisibility: function ($hidable) {
             if ($hidable.hasClass(hiddenClass)) {
