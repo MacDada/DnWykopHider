@@ -83,7 +83,7 @@ function runWykopHider(options) {
 
             hidableView.hide($hidables);
 
-            // redirectToNextPageIfAllHidablesAreHidden();
+            redirectToNextPageIfAllHidablesAreHidden();
         },
         toggleVisibility: function ($hidable) {
             if ($hidable.hasClass(hiddenClass)) {
@@ -155,10 +155,23 @@ function runWykopHider(options) {
         })
         .insertAfter($nextPageButtons);
 
+    function redirectToNextPageIfAllHidablesAreHidden() {
+        const hidablesCount = $hidables.length;
+        const visibleHidablesCount = $hidables.not('.' + hiddenClass).length;
+
+        console.log('redirect?', hidablesCount, visibleHidablesCount);
+
+        if (0 !== hidablesCount && 0 === visibleHidablesCount) {
+            console.log('no visible items, redirecting to next page');
+
+            $nextPageButtons[0].click();
+        }
+    }
+
     /**
      * Page loaded: hiding elements already hidden and saved to localStorage
      */
     hidableView.hide($hidables.filter(function () {
         return hiddenHidablesStorage.has(identifyHidable($(this)));
-    }), function () {});
+    }), redirectToNextPageIfAllHidablesAreHidden);
 }
