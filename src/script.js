@@ -55,6 +55,9 @@ function runWykopHider(options) {
             $hidables.sortElements(function (hidable) {
                 return $(hidable).hasClass(hiddenClass) ? 1 : -1;
             });
+
+            // hack to access lazy load from wykop original source code
+            location.href = 'javascript:$("img.lazy").lazyload(); void 0';
         }
     };
 
@@ -174,4 +177,23 @@ function runWykopHider(options) {
     hidableView.hide($hidables.filter(function () {
         return hiddenHidablesStorage.has(identifyHidable($(this)));
     }), redirectToNextPageIfAllHidablesAreHidden);
+
+    /**
+     * Sorting by visibility
+     * and cloning paginator before first invisible hidable.
+     */
+    if (options.visibleFirst && options.hiddenOpacity > 0) {
+        hidableView.sortByVisibility();
+
+        const clonedPagerRow = $('<li></li>');
+
+        $nextPageButtons
+            .parents('.pager')
+            .clone(true)
+            .appendTo(clonedPagerRow);
+
+        $searchResult
+            .find('li.' + hiddenClass + ':first')
+            .before(clonedPagerRow);
+    }
 }
