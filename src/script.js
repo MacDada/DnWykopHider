@@ -127,12 +127,33 @@ function runWykopHider(options) {
      */
     const $hidables = $searchResult.find('li.link.iC:has(div.article.dC)');
 
+    const $nextPageButtons = $('.pager a.button:last-child');
+
     /**
      * Clicking on a table row (hidable), hides it.
      */
     $hidables.click(function () {
         hidablesController.toggleVisibility($(this));
     });
+
+    /**
+     * Show all / hide all buttons after paginator
+     */
+    $('<a href="#" class="dnwhBottomButton">' + chrome.i18n.getMessage('showAll') + '</a>')
+        .click(function (e) {
+            e.preventDefault();
+
+            hidablesController.showAll();
+        })
+        .insertAfter($nextPageButtons);
+
+    $('<a href="#" class="dnwhBottomButton dnthHideAll">' + chrome.i18n.getMessage('hideAll') + '</a>')
+        .click(function (e) {
+            e.preventDefault();
+
+            hidablesController.hideAll();
+        })
+        .insertAfter($nextPageButtons);
 
     /**
      * Page loaded: hiding elements already hidden and saved to localStorage
